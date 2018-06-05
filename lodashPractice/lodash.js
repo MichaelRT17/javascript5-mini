@@ -185,8 +185,16 @@ var purchases = [
 // First, group the purchases by company without lodash
 // then do it again using _.groupBy()
 
-console.log(purchases.sort(function (a, b) {
-  return a.company < b.company
-}))
+let orders = {Staples: [], DunderMifflin: []};
+purchases.forEach(x => {
+  if (x.company === 'Staples') {
+    orders.Staples.push(x)
+  }
+  else if (x.company === 'Dunder Mifflin') {
+    orders.DunderMifflin.push(x)
+  } 
+})
+console.log(orders)
+
 
 console.log(_.groupBy(purchases, 'company'))
