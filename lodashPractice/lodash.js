@@ -1,3 +1,5 @@
+var _ = require('lodash');
+
 var customers = [
   {
     id: 1,
@@ -74,8 +76,10 @@ var customers = [
 // Create an array of all email addresses
 // first without using lodash's map (with property argument) method, then with it.
 
-//CODE HERE
-
+var emails = customers.map(customer => customer.email)
+console.log(emails)
+var emails2 = _.map(customers, 'email')
+console.log(emails2)
 
 
 var inviteList1 = ["Ed", "Fanny", "Mildred", "Alice", "James"];
@@ -84,6 +88,27 @@ var inviteList2 = ["Jake", "Mildred", "Jimmy", "Ed", "Franklin"];
 // Uh oh! We are having a party and two invite lists were created.
 // Create a duplicate-free list of the people we want at the party without lodash's _.union().
 // Then create another list that removes all duplicates using _.union().
+
+function newList(list1, list2) {
+  var list = [];
+  for (let i = 0; i < list1.length; i++) {
+    if (list2.indexOf(list1[i]) === -1) {
+      list.push(list1[i])
+    }
+  }
+  for (let j = 0; j < list2.length; j++) {
+    if (list.indexOf(list2[j]) === -1) {
+      list.push(list2[j])
+    }
+  }
+  return list.sort();
+}
+console.log(newList(inviteList1, inviteList2))
+
+let uniqList = _.union(inviteList1, inviteList2)
+console.log('uniq: ' + uniqList)
+
+
 
 var friendsOfJim = [
   "Tom",
@@ -110,6 +135,17 @@ var friendsOfBetty = [
 // Jim and Betty are having a party, but they only want to invite mutual friends.
 // Create an array of mutual friends. First without using lodash.
 // Then using lodash's _.intersection().
+
+function mutualFriends (friends1, friends2) {
+  let newList = friends1.filter(friend => friends2.includes(friend))
+  return newList;
+}
+
+console.log(mutualFriends(friendsOfBetty, friendsOfJim))
+
+console.log("_",(_.intersection(friendsOfBetty, friendsOfJim)))
+
+
 
 var purchases = [
   {
@@ -148,3 +184,9 @@ var purchases = [
 
 // First, group the purchases by company without lodash
 // then do it again using _.groupBy()
+
+console.log(purchases.sort(function (a, b) {
+  return a.company < b.company
+}))
+
+console.log(_.groupBy(purchases, 'company'))
